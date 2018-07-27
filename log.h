@@ -12,10 +12,10 @@
 			printf("[E] %s: +%d %s(): "fmt"\n", LOG_TAG, __LINE__, __func__, ##arg);\
 		}\
 		else if (level == LOG_LEVEL_INFO) {\
-			printf("[I] %s: +%d "fmt"\n", LOG_TAG, __LINE__, __func__, ##arg);\
+			printf("[I] %s: "fmt"\n", LOG_TAG, ##arg);\
 		}\
 		else if (level == LOG_LEVEL_DEBUG) {\
-			printf("[D] %s: +%d "fmt"\n", LOG_TAG, __LINE__, __func__, ##arg);\
+			printf("[D] %s: "fmt"\n", LOG_TAG, ##arg);\
 		}\
 	}\
 } while (0)
@@ -34,16 +34,8 @@
 #define log_i(fmt, arg...) if(could_info()) log(fmt, ##arg)
 #define log_d(fmt, arg...) if(could_debug()) log(fmt, ##arg)
 
-inline void log_buf(const char *name, unsigned char* buf, int len)
-{
-	int i;
-	log("%s: ", name);
-	for(i=0;i<len;i++) {
-		log("0x%02x,", buf[i] );
-	}
-	log(" (%d)", len);
-	log("\n");
-}
+#define log_buf(name, buf, len) printf("%s\n", name);
+
 
 
 #endif

@@ -1,35 +1,29 @@
+TARGET = uartool
+
+_OBJ = uart_device.o \
+	   uart_tool.o
+
+_DEPS = uart_device.h log.h
+
+IDIR = ./
+LDIR = ./lib
+SDIR = ./
+ODIR = .
+LIBS = -lm
 
 CC=gcc
 CFLAGS=-I$(IDIR)
 
-IDIR =./
-LDIR =./lib
-SDIR =./
-ODIR =.
-
-LIBS=-lm
-
-_DEPS = uart_api.h log.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
-
-_OBJ = uart_api.o uart_tool.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
-
-uartool: $(OBJ)
+$(TARGET): $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
-$%.o: %.c $(DEPS)
+$(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
-
-#obj/uart_api.o: uart_api.c $(DEPS)
-#	$(CC) -c -o $@ $< $(CFLAGS)
-
-#obj/uart_tool.o: uart_tool.c $(DEPS)
-#	$(CC) -c -o $@ $< $(CFLAGS)
 
 
 .PHONY: clean
-
 clean:
-	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~
+	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ $(TARGET)
