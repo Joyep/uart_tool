@@ -35,6 +35,20 @@ static int log_level = LOG_LEVEL_DEBUG;
 
 #define msleep(x) usleep(x*1000)
 
+static void log_buf(const char *name, unsigned char* buf, int len)
+{
+	int i;
+	if(len <= 0) {
+		return;
+	}
+	log("%s: ", name);
+	for(i=0;i<len;i++) {
+		log("0x%02x,", buf[i] );
+	}
+	log(" (%d)", len);
+	log("\n");
+}
+
 
 int uart_close(uart_t* uart)
 {

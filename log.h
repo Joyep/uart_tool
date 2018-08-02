@@ -34,7 +34,7 @@
 #define log_i(fmt, arg...) if(could_info()) log(fmt, ##arg)
 #define log_d(fmt, arg...) if(could_debug()) log(fmt, ##arg)
 
-#define log_buf(name, buf, len) printf("%s\n", name);
+//#define log_buf(name, buf, len) printf("%s\n", name);
 
 
 
