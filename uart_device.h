@@ -6,6 +6,8 @@
 typedef struct uart_device uart_t;
 struct uart_device {
     int fd;
+	int read_delay;
+	int read_retry;
     int (*close)(uart_t* uart);
     int (*config)(uart_t* uart, int databits, int stopbits, int parity, int baudrate);
     int (*write)(uart_t* uart, void *buf, int len);
