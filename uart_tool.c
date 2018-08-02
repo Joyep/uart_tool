@@ -19,12 +19,12 @@ int main(void)
         return -1;
     }
 
-	log_buf("test log buf", NULL, NULL);
-	log_buf("write org", _Getcardstatus+1, _Getcardstatus[0]);
+	//log_buf("test log buf", NULL, NULL);
+	//log_buf("write org", _Getcardstatus+1, _Getcardstatus[0]);
 
 	len = uart->write_read(uart, _Getcardstatus+1, _Getcardstatus[0], buf2, 50);
 
-	log_buf("get card status", buf2, len);
+	//log_buf("get card status", buf2, len);
 
 	uart->close(uart);
 }

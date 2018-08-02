@@ -39,6 +39,7 @@ static void log_buf(const char *name, unsigned char* buf, int len)
 {
 	int i;
 	if(len <= 0) {
+		log("=");
 		return;
 	}
 	log("%s: ", name);
@@ -259,12 +260,12 @@ int uart_config(uart_t* uart, int databits, int stopbits, int parity, int baudra
 int uart_write_read(uart_t* uart, unsigned char *data, int data_len, unsigned char *read, int read_len)
 {
 	int ret;
-	int mtimes = 50;
+	int mtimes = uart->read_retry;
 	int len;
 
 	ret = uart_write(uart, data, data_len);
 	while(mtimes--) {
-		msleep(20);
+		msleep(uart->read_delay);
 		len = uart_read(uart, read, read_len);
 		if(len <= 0) {
 			continue;
@@ -297,6 +298,9 @@ uart_t* uart_open(const char *dev)
     uart->write = uart_write;
     uart->write_read = uart_write_read;
     uart->config = uart_config;
+
+	uart->read_retry = 50;
+	uart->read_delay = 20;
 
 	return uart;
 }
